@@ -1,0 +1,30 @@
+
+using System;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var client = new AmazonSimpleNotificationServiceClient(Amazon.RegionEndpoint.USEast2);
+            SendMessage(client).Wait();
+        }
+
+        static async Task SendMessage(IAmazonSimpleNotificationService snsClient)
+        {
+            var request = new PublishRequest
+            {
+                TopicArn = "INSERT TOPIC ARN",
+                Message = "Test Message"
+            };
+
+            await snsClient.PublishAsync(request);
+        }
+    }
+}
+
+
